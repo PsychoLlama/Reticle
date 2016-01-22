@@ -47,10 +47,26 @@ function reticle(Gun) {
       if (typeof name === 'string') {
         name = this.__[scope] + ':' + name;
       }
-      console.log(name);
 
       // invoke the original `get` method
       return get.call(this, name, cb, opt);
+    };
+  }());
+
+  // wrap the `key` method with middleware
+  Gun.chain.key = (function () {
+
+    // keep a reference to the original `key` method
+    var key = Gun.chain.key;
+
+    return function (name, cb, opt) {
+
+      // if name is a string
+      if (typeof name === 'string') {
+        name = this.__[scope] + ':' + name;
+      }
+
+      return key.call(this, name, cb, opt);
     };
   }());
 
