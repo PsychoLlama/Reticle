@@ -1,0 +1,23 @@
+{
+  "name": "reticle",
+  "version": "0.1.0",
+  "description": "Scope your gunDB apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "build": "webpack --watch"
+  },
+  "keywords": [
+    "gun",
+    "gunDB",
+    "scope",
+    "namespace"
+  ],
+  "author": "Jesse Gibson <jesse@gundb.io> (http://techllama.com)",
+  "license": "(Zlib OR MIT OR Apache-2.0)",
+  "devDependencies": {
+    "gun": "^0.2.5",
+    "jasmine": "^2.4.1",
+    "webpack": "^1.12.11"
+  }
+}
