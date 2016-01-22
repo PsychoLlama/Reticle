@@ -1,6 +1,8 @@
 # Reticle
 Put a scope on gunDB.
 
+[![npm](https://img.shields.io/npm/dt/reticle.svg?style=flat-square)](https://www.npmjs.com/package/reticle)[![Travis branch](https://img.shields.io/travis/PsychoLlama/reticle/master.svg?style=flat-square)](https://travis-ci.org/PsychoLlama/Reticle)[![Gitter](https://img.shields.io/gitter/room/amark/gun.js.svg?style=flat-square)](http://gitter.im/amark/gun)
+
 ## What it is
 > Reticle is a tool built for [gunDB](https://github.com/amark/gun)
 
