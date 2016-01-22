@@ -9,6 +9,8 @@ By default, gun's data is global. If you use the same key by accident on a diffe
 ## How it works
 You can scope your databases under a name, like `Todo List`, and Reticle will produce a hashed string (`'7b3ozc'`) and automatically upgrade your context to use that new namespace.
 
+> Scope names are case sensitive
+
 Reticle exposes two methods through Gun...
 
  - one on the constructor: `Gun.scope`
