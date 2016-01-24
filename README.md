@@ -11,7 +11,29 @@ By default, gun's data is global. If you use the same key by accident on a diffe
 ## How it works
 You can scope your databases under a name, like `Todo List`, and Reticle will produce a hashed string (`'7b3ozc'`) and automatically upgrade your context to use that new namespace.
 
-> Scope names are case sensitive
+### Including
+**Node.js**
+
+To use Reticle in node, `require('reticle')` in your app. Reticle is version agnostic when it comes to gunDB, and since you may be using multiple versions of gun with node, Reticle needs an explicit reference to the constructor you want to extend.
+```javascript
+var Gun = require('gun')
+var scope = require('reticle');
+
+// add reticle scoping methods
+scope(Gun)
+```
+
+**Browser**
+
+To use Reticle in the browser, you can include it as a script tag.
+```html
+<script src="reticle.min.js"></script>
+```
+Since `Gun` is exported to the global namespace, Reticle knows what version you're using and can automatically attach itself.
+
+
+## API
+
 
 Reticle exposes two methods through Gun...
 
@@ -31,7 +53,10 @@ To scope just one instance, use the instance method.
 ```javascript
 var gun = Gun().scope('Todo List').get('list/items');
 ```
+
 Once the scope has been set, it will remain the same until changed again.
+
+> Scope names are case sensitive
 
 ## Examples
 Using two instances without collision
