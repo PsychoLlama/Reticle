@@ -1,11 +1,15 @@
 {
   "name": "reticle",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Scope your gunDB apps",
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
     "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PsychoLlama/Reticle.git"
   },
   "keywords": [
     "gun",

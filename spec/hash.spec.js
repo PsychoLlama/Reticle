@@ -36,4 +36,12 @@ describe('The string hasher', function () {
     expect(hash('bye')).toBe(hash('bye'));
   });
 
+	it('should append a colon', function () {
+		expect(hash('test').slice(-1)).toBe(':');
+	});
+
+	it('should not append a colon to empty input', function () {
+		expect(hash().slice(-1)).not.toBe(':');
+	});
+
 });

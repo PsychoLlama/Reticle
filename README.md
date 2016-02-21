@@ -17,10 +17,9 @@ You can scope your databases under a name, like `Todo List`, and Reticle will pr
 To use Reticle in node, `require('reticle')` in your app. Reticle is version agnostic when it comes to gunDB, and since you may be using multiple versions of gun with node, Reticle needs an explicit reference to the constructor you want to extend.
 ```javascript
 var Gun = require('gun')
-var scope = require('reticle');
 
-// add reticle scoping methods
-scope(Gun)
+// reticle automatically upgrades gun
+require('reticle')
 ```
 
 **Browser**
@@ -78,26 +77,7 @@ tracePlayers.path('Player 0').val() // "Dave"
 ## Edge cases
 Reticle will try to convert input to a string so it can hash it. If the value it's given is a isn't a string, Reticle will try to convert it. If the value is falsy, gun will revert to it's global behavior. For example, if you call `.scope` with `null` or empty string `""`, **your namespace is global**. There is no prefix.
 
+Previous versions of gun have mixed support for the `uuid` option in the gun constructor. To be sure the UUIDs are scoped properly, the `Gun.text.random` function was overloaded. If you're using that function, you may notice the output being prepended with a scope.
+
 ## Support
-If you find any problems or know of a way to improve Reticle (or gun for that matter), send us a message on [Gitter](http://gitter.im/amark/gun). We keep an eye on the channel.
-
-## Contributing
-Contributing is always welcome.
-If you want to add a feature or fix a bug, there are npm scripts that make development easier. It will help if you compile while coding so you can try it out in the browser. The build process will automatically run every time you change the source once you kick off the process; just type this in the terminal:
-```bash
-$ npm run build
-```
-
-You can check that the functionality doesn't break by testing frequently by running:
-```bash
-$ npm test
-```
-
-If you have any problems or questions, feel free to let us know in the [Gitter channel](http://gitter.im/amark/gun).
-
-<!--
-
-### Contributors
- - your name here
-
--->
+If you find any problems or know of a way to improve Reticle (or gun for that matter), send us a message on [Gitter](http://gitter.im/amark/gun). We're almost always on that channel.

@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       minimize: true
-    })
+    }),
+		new webpack.IgnorePlugin(/^gun/)
   ]
 };
