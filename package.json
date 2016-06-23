@@ -20,7 +20,7 @@
   "author": "Jesse Gibson <jesse@gundb.io> (http://techllama.com)",
   "license": "(Zlib OR MIT OR Apache-2.0)",
   "devDependencies": {
-    "gun": "^0.2.5",
+    "gun": "^0.3.93",
     "jasmine": "^2.4.1",
     "webpack": "^1.12.11"
   }
