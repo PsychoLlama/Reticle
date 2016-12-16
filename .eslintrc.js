@@ -16,4 +16,6 @@ eslint.extends = [
 
 eslint.rules = {
   'global-require': 'off',
+  'require-jsdoc': 'off',
+  'no-underscore-dangle': 'off',
 };

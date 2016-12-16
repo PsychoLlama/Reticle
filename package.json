@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
-    "lint": "eslint lib/ spec/",
+    "lint": "eslint lib/ spec/ index.js",
     "build": "webpack --watch"
   },
   "repository": {

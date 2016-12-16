@@ -1,100 +1,102 @@
 'use strict';
 
-var preset, hash, Gun, scope = '\u2316';
-hash = require('./lib/hash');
-preset = '';
+const hash = require('./lib/hash');
+const scope = '\u2316';
+let preset = '';
+let Gun;
 
 try {
-	Gun = window.Gun;
-} catch (e) {
-	Gun = require('gun/gun');
+  Gun = window.Gun;
+} catch (err) {
+  Gun = require('gun/gun');
 }
 
-
-function find(chain, cb) {
-  var val;
+function find (chain, cb) {
+  let val;
 
   if (!Gun.is(chain)) {
-		return;
-	}
+    return undefined;
+  }
 
   while (Gun.is(chain)) {
     if ((val = cb(chain)) !== undefined) {
-			return val;
-		}
-		if (chain === chain.back) {
-			break;
-		}
-		chain = chain.back;
-	}
+      return val;
+    }
+    if (chain === chain.back) {
+      break;
+    }
+    chain = chain.back;
+  }
+
+  return undefined;
 }
 
-function findScope(gun) {
+function findScope (gun) {
 
-	var found = find(gun, function (chain) {
-		return chain._[scope];
-	});
+  let found = find(gun, function (chain) {
+    return chain._[scope];
+  });
 
-	found = typeof found === 'string' ? found : gun.__[scope];
+  found = typeof found === 'string' ? found : gun.__[scope];
 
-	return found || '';
+  return found || '';
 }
 
-function prefix(gun, name) {
+function prefix (gun, name) {
 
-	// if name is a string, prefix it with a scope
-	if (typeof name === 'string') {
-		var match, scope;
+  // if name is a string, prefix it with a scope
+  if (typeof name === 'string') {
 
-		// find the prefix
-		scope = findScope(gun);
-		match = new RegExp('^' + scope);
+    // find the prefix
+    const scope = findScope(gun);
+    const match = new RegExp(`^${scope}`);
 
-		// only prefix once
-		if (!name.match(match)) {
-			name = scope + name;
-		}
+    // only prefix once
+    if (!name.match(match)) {
+      name = scope + name;
+    }
 
-	} else if (Gun.obj.is(name)) {
-		if (!name['#']) {
-			return name;
-		}
-		name['#'] = prefix(gun, name['#']);
-		return name;
-	}
+  } else if (Gun.obj.is(name)) {
+    if (!name['#']) {
+      return name;
+    }
+    name['#'] = prefix(gun, name['#']);
+    return name;
+  }
 
-	return name;
+  return name;
 }
 
 
 Gun.scope = function (name) {
-	if (typeof name === 'string') {
-		preset = hash(name);
-	}
-	return Gun;
+  if (typeof name === 'string') {
+    preset = hash(name);
+  }
+  return Gun;
 };
 
 // each new instance, set a starting scope
 Gun.on('opt').event(function (gun) {
-	gun.__[scope] = gun.__[scope] || preset;
+  gun.__[scope] = gun.__[scope] || preset;
 });
 
 // add the `scope` method
 Gun.chain.scope = function (name) {
-	var gun = this.chain();
+  const gun = this.chain();
 
-	if (typeof name === 'string') {
-		/*
-		  Hash the name and keep it as a string.
-		  This is used in `.get`.
-		*/
-		gun._[scope] = hash(name);
-	}
-	if (name === null) {
-		gun._[scope] = '';
-	}
+  if (typeof name === 'string') {
 
-	return gun;
+   /*
+     Hash the name and keep it as a string.
+     This is used in `.get`.
+   */
+    gun._[scope] = hash(name);
+  }
+  if (name === null) {
+    gun._[scope] = '';
+  }
+
+  return gun;
 };
 
 
@@ -106,50 +108,50 @@ Gun.chain.scope = function (name) {
 
 Gun.chain.get = (function () {
 
-	// keep a reference to the real `get` method
-	var get = Gun.chain.get;
+  // keep a reference to the real `get` method
+  const get = Gun.chain.get;
 
-	return function (name, cb, opt) {
+  return function (name, cb, opt) {
 
-		// apply a scope
-		name = prefix(this, name);
+   // apply a scope
+    name = prefix(this, name);
 
-		// invoke the original `get` method
-		return get.call(this, name, cb, opt);
-	};
+   // invoke the original `get` method
+    return get.call(this, name, cb, opt);
+  };
 }());
 
 Gun.chain.key = (function () {
 
-	// keep a reference to the original `key` method
-	var key = Gun.chain.key;
+  // keep a reference to the original `key` method
+  const key = Gun.chain.key;
 
-	return function (name, cb, opt) {
+  return function (name, cb, opt) {
 
-		name = prefix(this, name);
+    name = prefix(this, name);
 
-		return key.call(this, name, cb, opt);
-	};
+    return key.call(this, name, cb, opt);
+  };
 }());
 
 Gun.chain.put = (function () {
-	var put = Gun.chain.put;
+  const put = Gun.chain.put;
 
-	return function () {
+  return function () {
 
-		Gun.text.random.scope = findScope(this);
-		return put.apply(this, arguments);
-	};
+    Gun.text.random.scope = findScope(this);
+    return put.apply(this, arguments);
+  };
 }());
 
 Gun.text.random = (function () {
-	var random = Gun.text.random;
+  const random = Gun.text.random;
 
-	return function (l, c) {
+  return function (length, chars) {
 
-		var scope = Gun.text.random.scope;
-		return scope + random.call(this, l, c);
-	};
+    const scope = Gun.text.random.scope;
+    return scope + random.call(this, length, chars);
+  };
 }());
 
 Gun.text.random.scope = '';
