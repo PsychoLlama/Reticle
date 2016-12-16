@@ -1,4 +1,3 @@
-/*jslint node: true, nomen: true, bitwise: true */
 'use strict';
 
 var preset, hash, Gun, scope = '\u2316';

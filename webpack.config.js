@@ -1,4 +1,3 @@
-/*jslint node: true*/
 var webpack = require("webpack");
 
 module.exports = {

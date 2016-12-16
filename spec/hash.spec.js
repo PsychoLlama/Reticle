@@ -1,8 +1,7 @@
-/*globals describe, it, expect, jasmine*/
-/*jslint node: true*/
+/* globals describe, it, expect, jasmine*/
 'use strict';
 
-var hash = require('../lib/hash');
+const hash = require('../lib/hash');
 
 describe('The string hasher', function () {
 
@@ -36,12 +35,12 @@ describe('The string hasher', function () {
     expect(hash('bye')).toBe(hash('bye'));
   });
 
-	it('should append a colon', function () {
-		expect(hash('test').slice(-1)).toBe(':');
-	});
+  it('should append a colon', function () {
+    expect(hash('test').slice(-1)).toBe(':');
+  });
 
-	it('should not append a colon to empty input', function () {
-		expect(hash().slice(-1)).not.toBe(':');
-	});
+  it('should not append a colon to empty input', function () {
+    expect(hash().slice(-1)).not.toBe(':');
+  });
 
 });
