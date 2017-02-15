@@ -23,7 +23,7 @@
   "devDependencies": {
     "eslint": "^3.12.2",
     "eslint-config-llama": "^3.0.0",
-    "gun": "^0.3.93",
+    "gun": "^0.6.0",
     "jasmine": "^2.4.1",
     "webpack": "^1.12.11"
   }
