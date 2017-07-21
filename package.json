@@ -21,7 +21,7 @@
   "author": "Jesse Gibson <jesse@gundb.io> (http://techllama.com)",
   "license": "(Zlib OR MIT OR Apache-2.0)",
   "devDependencies": {
-    "eslint": "^3.12.2",
+    "eslint": "^4.3.0",
     "eslint-config-llama": "^3.0.0",
     "gun": "^0.3.93",
     "jasmine": "^2.4.1",
